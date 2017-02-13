@@ -10,8 +10,8 @@ BINDINGS=xapian-bindings-$VERSION
 
 # download
 echo "Downloading source..."
-curl -O http://oligarchy.co.uk/xapian/$VERSION/${CORE}.tar.xz
-curl -O http://oligarchy.co.uk/xapian/$VERSION/${BINDINGS}.tar.xz
+curl -O https://oligarchy.co.uk/xapian/$VERSION/${CORE}.tar.xz
+curl -O https://oligarchy.co.uk/xapian/$VERSION/${BINDINGS}.tar.xz
 
 # extract
 echo "Extracting source..."
@@ -37,12 +37,18 @@ else
     XAPIAN_CONFIG=
 fi
 
+# The bindings for Python require python-sphinx
+echo "Installing Python-Sphinx..."
+pip install sphinx
+
 echo "Installing Xapian-bindings..."
 cd $VIRTUAL_ENV/packages/${BINDINGS}
 ./configure --prefix=$VIRTUAL_ENV $PYTHON_FLAG XAPIAN_CONFIG=$XAPIAN_CONFIG && make && make install
 
 # clean
+cd $VIRTUAL_ENV
 rm -rf $VIRTUAL_ENV/packages
 
 # test
+echo "Testing Xapian..."
 python -c "import xapian"

@@ -26,21 +26,26 @@ Xapian-Haystack provides all the standard features of Haystack:
 - Spelling suggestions
 - EdgeNGram and Ngram (for autocomplete)
 
+Limitations
+-----------
+
+The `endswith` search operation is not supported by Xapian-Haystack.
+
 
 Requirements
 ------------
 
 - Python 2.7 or 3.3
-- Django 1.6+
+- Django 1.8+
 - Django-Haystack 2
 - Xapian 1.2.19+
 
-In particular, we build this backend on `Travis`_ using:
+In particular, we build-test this backend in `Travis`_ using:
 
-- Python 2.7 and 3.3
-- Django 1.6, 1.7 and 1.8
+- Python 2.7 and 3.4
+- Django 1.8, 1.9 and 1.10
 - Django-Haystack (master)
-- Xapian 1.2.19 (in Python 2) and 1.3.3 (in both)
+- Xapian 1.2.19 (Python 2 only), 1.3.3 (both), and 1.4.1 (both)
 
 
 Installation
@@ -112,6 +117,7 @@ Credits
 Xapian-Haystack is maintained by `Jorge C. Leitão <http://jorgecarleitao.net>`__;
 `David Sauve <mailto:david.sauve@bag-of-holding.com>`__ was the main contributor of Xapian-Haystack and
 Xapian-Haystack was originally funded by `Trapeze <http://www.trapeze.com>`__.
+`Claudep <http://www.2xlibre.net>`__ is a frequent contributor.
 `ANtlord <https://github.com/ANtlord>`__ implemented support for EdgeNgram and Ngram.
 
 
