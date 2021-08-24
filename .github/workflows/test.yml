@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.6, 3.7, 3.8, 3.9]
-        django-version: [2.2, '3.0', 3.1, 3.2]
+        python-version: [3.6]
+        django-version: [2.2]
 
     steps:
       - name: Install system dependencies
@@ -45,12 +45,14 @@ jobs:
           cp tests/xapian_tests/__init__.py django-haystack/test_haystack/
           cp .coveragerc django-haystack/
 
+      - name: Set PYTHONPATH
+        run: |
+          echo "PYTHONPATH=/usr/lib/python3/dist-packages:." >> $GITHUB_ENV
+
       - name: Ensure all apps have migrations
         run: |
           cd django-haystack
           django-admin makemigrations --settings=test_haystack.xapian_settings
-        env:
-          PYTHONPATH: "/usr/lib/python3/dist-packages:."
 
   test:
     needs: build
