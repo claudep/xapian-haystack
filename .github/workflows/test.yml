@@ -67,7 +67,7 @@ jobs:
       - name: Running tests
         run: |
           cd django-haystack
-          coverage run django-admin test test_haystack.xapian_tests --settings=test_haystack.xapian_settings
+          coverage run $(command -v django-admin) test test_haystack.xapian_tests --settings=test_haystack.xapian_settings
         env:
           PYTHONPATH: "/usr/lib/python3/dist-packages:."
 
