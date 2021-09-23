@@ -35,7 +35,7 @@ jobs:
       - name: Build xapian wheel
         if: steps.xapian-cache.outputs.cache-hit != 'true'
         run: |
-          ./xapian_wheel_builder.sh ${{ matrix.xapian-version }}
+          ./xapian_wheel_builder.sh -t ${{ matrix.xapian-version }}
 
       - name: Install Django and other Python dependencies
         run: |

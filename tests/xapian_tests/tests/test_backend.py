@@ -1,5 +1,6 @@
 from decimal import Decimal
 import datetime
+import inspect
 import sys
 import xapian
 import subprocess
@@ -40,6 +41,11 @@ def get_terms(backend, *args):
     # dev versions (odd minor) use a suffix
     if XAPIAN_VERSION[1] % 2 != 0:
         executable = executable+'-%d.%d' % tuple(XAPIAN_VERSION[0:2])
+
+    # look for a xapian-delve built by `xapian_wheel_builder -t`
+    wheel_delve = os.path.join(os.path.dirname(inspect.getfile(xapian)), executable)
+    if os.path.exists(wheel_delve):
+        executable = wheel_delve
 
     result = subprocess.check_output([executable] + list(args) + [backend.path],
                                      env=os.environ.copy()).decode('utf-8')
