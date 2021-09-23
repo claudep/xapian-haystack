@@ -6,7 +6,7 @@ env:
   FORCE_COLOR: 1
 
 jobs:
-  build:
+  build_and_test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -64,10 +64,6 @@ jobs:
           cd django-haystack
           django-admin makemigrations --settings=test_haystack.xapian_settings
 
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
       - name: Running tests
         run: |
           cd django-haystack
