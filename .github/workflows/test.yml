@@ -97,6 +97,6 @@ jobs:
           PYTHONPATH: "/usr/lib/python3/dist-packages:."
 
       - name: Coveralls
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+        run: coveralls
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
