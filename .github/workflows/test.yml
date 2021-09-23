@@ -97,6 +97,8 @@ jobs:
           PYTHONPATH: "/usr/lib/python3/dist-packages:."
 
       - name: Coveralls
-        run: coveralls --service=github
+        run: |
+          cd django-haystack
+          coveralls --service=github
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
