@@ -37,7 +37,7 @@ def get_terms(backend, *args):
     if XAPIAN_VERSION[1] % 2 != 0:
         executable = executable+'-%d.%d' % tuple(XAPIAN_VERSION[0:2])
 
-    # look for a xapian-delve built by `xapian_wheel_builder -t`
+    # look for a xapian-delve built by `xapian_wheel_builder`
     wheel_delve = os.path.join(os.path.dirname(inspect.getfile(xapian)), executable)
     if os.path.exists(wheel_delve):
         executable = wheel_delve

@@ -14,15 +14,12 @@ case "${uname_sysname}" in
 esac
 
 PYTHON=$(command -v python3)
-TEST_WHEEL=0                    # If 1, include xapian-delve for testing
 # shellcheck disable=SC2046
-set -- $(getopt tp: "$@")
+set -- $(getopt p: "$@")
 for opt; do
     case "$opt" in
         -p)
             PYTHON="$2"; shift 2 ;;
-        -t)
-            TEST_WHEEL=1; shift ;;
         --)
             shift ; break ;;
     esac
@@ -169,13 +166,10 @@ case "${uname_sysname}" in
         ;;
 esac
 
-if [ "${TEST_WHEEL}" -eq 1 ]; then
-    for file in "${prefix}"/bin/xapian-delve*; do
-        binary_patch_rpath "${file}"
-        cp "${file}" "${prefix}/xapian"
-    done
-fi
-
+for file in "${prefix}"/bin/xapian-delve*; do
+    binary_patch_rpath "${file}"
+    cp "${file}" "${prefix}/xapian"
+done
 
 # Prepare the scaffolding for the wheel
 cat > "$prefix/setup.py" <<EOF
