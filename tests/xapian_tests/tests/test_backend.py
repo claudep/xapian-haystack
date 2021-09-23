@@ -31,12 +31,7 @@ class XapianSearchResult(SearchResult):
 
 
 def get_terms(backend, *args):
-    if XAPIAN_VERSION[1] <= 2:
-        # old versions use "delve".
-        executable = 'delve'
-    else:
-        # new versions use 'xapian-delve'
-        executable = 'xapian-delve'
+    executable = 'xapian-delve'
 
     # dev versions (odd minor) use a suffix
     if XAPIAN_VERSION[1] % 2 != 0:
