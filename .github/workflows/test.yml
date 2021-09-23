@@ -97,6 +97,6 @@ jobs:
           PYTHONPATH: "/usr/lib/python3/dist-packages:."
 
       - name: Coveralls
-        run: coveralls
+        run: coveralls --service=github
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
