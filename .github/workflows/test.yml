@@ -6,12 +6,11 @@ env:
   FORCE_COLOR: 1
 
 jobs:
-  build_and_test:
+  prebuild_xapian_wheel:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: [3.6]
-        django-version: [2.2]
         xapian-version: [1.4.18]
 
     steps:
@@ -36,6 +35,32 @@ jobs:
         if: steps.xapian-cache.outputs.cache-hit != 'true'
         run: |
           ./xapian_wheel_builder.sh -t ${{ matrix.xapian-version }}
+
+  test:
+    needs: prebuild_xapian_wheel
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.6]
+        django-version: [2.2]
+        xapian-version: [1.4.18]
+
+    steps:
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Checkout xapian-haystack
+        uses: actions/checkout@v2
+
+      - name: Check for cached xapian wheel
+        # This will always succeed since the previous job just ran.
+        id: xapian-cache
+        uses: actions/cache@v2
+        with:
+          path: xapian*.whl
+          key: xapian-${{ matrix.xapian-version }}-${{ runner.os }}-${{ env.pythonLocation }}-${{ hashFiles('xapian_wheel_builder.sh') }}
 
       - name: Install Django and other Python dependencies
         run: |
